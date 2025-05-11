@@ -2,6 +2,7 @@ package com.example.viacep.infrastructure;
 
 import com.example.viacep.application.FindAddressByCepUseCase;
 import com.example.viacep.domain.Address;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -29,7 +30,7 @@ public class ViaCepClient implements FindAddressByCepUseCase {
         return webClient.get()
                 .uri("{cep}/json/", cep)
                 .retrieve()
-                .onStatus(x -> x.isError(),
+                .onStatus(HttpStatusCode::isError,
                         t -> {
                             throw new RuntimeException("Cep not found: " + cep);
                         })
