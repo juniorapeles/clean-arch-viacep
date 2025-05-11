@@ -19,7 +19,11 @@ public class AddressController {
     }
 
     @GetMapping("/{cep}")
-    public Address getAddress(@PathVariable String cep) {
+    public Address find(@PathVariable String cep) {
         return useCase.find(cep);
+    }
+    @GetMapping("webclient/{cep}")
+    public Address findWithWebClient(@PathVariable String cep) {
+        return useCase.findWithWebClient(cep);
     }
 }
